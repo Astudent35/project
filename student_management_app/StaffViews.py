@@ -89,13 +89,9 @@ def save_attendance_data(request):
     subject_model=Subjects.objects.get(id=subject_id)
     session_model=SessionYearModel.object.get(id=session_year_id)
     json_sstudent=json.loads(student_ids)
-    #print(data[0]['id'])
-
-
     try:
         attendance=Attendance(subject_id=subject_model,attendance_date=attendance_date,session_year_id=session_model)
         attendance.save()
-
         for stud in json_sstudent:
              student=Students.objects.get(admin=stud['id'])
              attendance_report=AttendanceReport(student_id=student,attendance_id=attendance,status=stud['status'])
@@ -257,11 +253,8 @@ def save_student_result(request):
     assignment_marks=request.POST.get('assignment_marks')
     exam_marks=request.POST.get('exam_marks')
     subject_id=request.POST.get('subject')
-
-
     student_obj=Students.objects.get(admin=student_admin_id)
     subject_obj=Subjects.objects.get(id=subject_id)
-
     try:
         check_exist=StudentResult.objects.filter(subject_id=subject_obj,student_id=student_obj).exists()
         if check_exist:
@@ -272,7 +265,8 @@ def save_student_result(request):
             messages.success(request, "Successfully Updated Result")
             return HttpResponseRedirect(reverse("staff_add_result"))
         else:
-            result=StudentResult(student_id=student_obj,subject_id=subject_obj,subject_exam_marks=exam_marks,subject_assignment_marks=assignment_marks)
+            result=StudentResult(student_id=student_obj,subject_id=subject_obj,subject_exam_marks=exam_marks,
+                                 subject_assignment_marks=assignment_marks)
             result.save()
             messages.success(request, "Successfully Added Result")
             return HttpResponseRedirect(reverse("staff_add_result"))

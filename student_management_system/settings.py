@@ -25,8 +25,7 @@ SECRET_KEY = 'so*rai_2(lk7t(yh%de+_kp_c%*r_b9wkga%gyo5tl9_8_r!xx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#HEROKU LIVE PROJECT LINK
-#ALLOWED_HOSTS = ["studentmanagementsystem22.herokuapp.com"]
+
 ALLOWED_HOSTS = ["*"]
 
 MEDIA_URL="/media/"
@@ -35,7 +34,7 @@ MEDIA_ROOT=os.path.join(BASE_DIR,"media")
 STATIC_URL="/static/"
 STATIC_ROOT=os.path.join(BASE_DIR,"static")
 
-# Application definition
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -139,16 +138,4 @@ AUTHENTICATION_BACKENDS=['student_management_app.EmailBackEnd.EmailBackEnd']
 EMAIL_BACKEND="django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH=os.path.join(BASE_DIR,"sent_mails")
 
-# EMAIL_HOST="smtp.gmail.com"
-# EMAIl_PORT=587
-# EMAIL_HOST_USER="GMAIL_EMAIL"
-# EMAIL_HOST_PASSWORD="GMAIL PASSWORD"
-# EMAIL_USE_TLS=True
-# DEFAULT_FROM_EMAIL="Student management System <GMAIl_EMAIL>"
-#
 
-#Enable Only Making Project Live on Heroku
-# STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
-# import dj_database_url
-# prod_db=dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(prod_db)
