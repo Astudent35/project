@@ -118,25 +118,6 @@ class FeedBackStaffs(models.Model):
     updated_at = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()
 
-
-# class NotificationStudent(models.Model):
-#     id = models.AutoField(primary_key=True)
-#     student_id = models.ForeignKey(Students, on_delete=models.CASCADE)
-#     message = models.TextField()
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now_add=True)
-#     objects = models.Manager()
-#
-#
-# class NotificationStaffs(models.Model):
-#     id = models.AutoField(primary_key=True)
-#     staff_id = models.ForeignKey(Staffs, on_delete=models.CASCADE)
-#     message = models.TextField()
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now_add=True)
-#     objects = models.Manager()
-
-
 class StudentResult(models.Model):
     id=models.AutoField(primary_key=True)
     student_id=models.ForeignKey(Students,on_delete=models.CASCADE)
@@ -146,19 +127,6 @@ class StudentResult(models.Model):
     created_at=models.DateField(auto_now_add=True)
     updated_at=models.DateField(auto_now_add=True)
     objects=models.Manager()
-
-
-# class OnlineClassRoom(models.Model):
-#     id=models.AutoField(primary_key=True)
-#     room_name=models.CharField(max_length=255)
-#     room_pwd=models.CharField(max_length=255)
-#     subject=models.ForeignKey(Subjects,on_delete=models.CASCADE)
-#     session_years=models.ForeignKey(SessionYearModel,on_delete=models.CASCADE)
-#     started_by=models.ForeignKey(Staffs,on_delete=models.CASCADE)
-#     is_active=models.BooleanField(default=True)
-#     created_on=models.DateTimeField(auto_now_add=True)
-#     objects=models.Manager()
-
 
 @receiver(post_save,sender=CustomUser)
 def create_user_profile(sender,instance,created,**kwargs):
