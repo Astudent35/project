@@ -320,24 +320,6 @@ def add_session_save(request):
             messages.error(request, "Failed to Add Session")
             return HttpResponseRedirect(reverse("manage_session"))
 
-#@csrf_exempt
-#def check_email_exist(request):
-#    email=request.POST.get("email")
-#    user_obj=CustomUser.objects.filter(email=email).exists()
-#    if user_obj:
-#        return HttpResponse(True)
-#    else:
-#        return HttpResponse(False)
-
-#@csrf_exempt
-#def check_username_exist(request):
-#    username=request.POST.get("username")
-#    user_obj=CustomUser.objects.filter(username=username).exists()
-#    if user_obj:
-#        return HttpResponse(True)
-#    else:
-#        return HttpResponse(False)
-
 def staff_feedback_message(request):
     feedbacks=FeedBackStaffs.objects.all()
     return render(request,"admin_template/staff_feedback.html",{"feedbacks":feedbacks})
@@ -441,78 +423,3 @@ def admin_get_attendance_student(request):
 def admin_profile(request):
     user=CustomUser.objects.get(id=request.user.id)
     return render(request,"admin_template/admin_profile.html",{"user":user})
-
-# def admin_profile_save(request):
-#     if request.method!="POST":
-#         return HttpResponseRedirect(reverse("admin_profile"))
-#     else:
-#         first_name=request.POST.get("first_name")
-#         last_name=request.POST.get("last_name")
-#         password=request.POST.get("password")
-#         try:
-#             customuser=CustomUser.objects.get(id=request.user.id)
-#             customuser.first_name=first_name
-#             customuser.last_name=last_name
-#             # if password!=None and password!="":
-#             #     customuser.set_password(password)
-#             customuser.save()
-#             messages.success(request, "Successfully Updated Profile")
-#             return HttpResponseRedirect(reverse("admin_profile"))
-#         except:
-#             messages.error(request, "Failed to Update Profile")
-#             return HttpResponseRedirect(reverse("admin_profile"))
-
-#def admin_send_notification_student(request):
-#    students=Students.objects.all()
-#    return render(request,"admin_template/student_notification.html",{"students":students})
-
-#def admin_send_notification_staff(request):
-#    staffs=Staffs.objects.all()
-#    return render(request,"admin_template/staff_notification.html",{"staffs":staffs})
-
-# @csrf_exempt
-# def send_student_notification(request):
-#     id=request.POST.get("id")
-#     message=request.POST.get("message")
-#     student=Students.objects.get(admin=id)
-#     token=student.fcm_token
-#     url="https://fcm.googleapis.com/fcm/send"
-#     body={
-#         "notification":{
-#             "title":"Student Management System",
-#             "body":message,
-#             "click_action": "https://studentmanagementsystem22.herokuapp.com/student_all_notification",
-#             "icon": "http://studentmanagementsystem22.herokuapp.com/static/dist/img/user2-160x160.jpg"
-#         },
-#         "to":token
-#     }
-#     headers={"Content-Type":"application/json","Authorization":"key=SERVER_KEY_HERE"}
-#     data=requests.post(url,data=json.dumps(body),headers=headers)
-#     notification=NotificationStudent(student_id=student,message=message)
-#     notification.save()
-#     print(data.text)
-#     return HttpResponse("True")
-
-# @csrf_exempt
-# def send_staff_notification(request):
-#     id=request.POST.get("id")
-#     message=request.POST.get("message")
-#     staff=Staffs.objects.get(admin=id)
-#     token=staff.fcm_token
-#     url="https://fcm.googleapis.com/fcm/send"
-#     body={
-#         "notification":{
-#             "title":"Student Management System",
-#             "body":message,
-#             "click_action":"https://studentmanagementsystem22.herokuapp.com/staff_all_notification",
-#             "icon":"http://studentmanagementsystem22.herokuapp.com/static/dist/img/user2-160x160.jpg"
-#         },
-#         "to":token
-#     }
-#     headers={"Content-Type":"application/json","Authorization":"key=SERVER_KEY_HERE"}
-#     data=requests.post(url,data=json.dumps(body),headers=headers)
-#     notification=NotificationStaffs(staff_id=staff,message=message)
-#     notification.save()
-#     print(data.text)
-#     return HttpResponse("True")
-
