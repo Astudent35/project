@@ -13,31 +13,6 @@ from student_management_app.models import Students, Courses, Subjects, CustomUse
 def student_home(request):
     return render(request,"student_template/student_home.html")
 
-# def join_class_room(request,subject_id,session_year_id):
-#     session_year_obj=SessionYearModel.object.get(id=session_year_id)
-#     subjects=Subjects.objects.filter(id=subject_id)
-#     if subjects.exists():
-#         session=SessionYearModel.object.filter(id=session_year_obj.id)
-#         if session.exists():
-#             subject_obj=Subjects.objects.get(id=subject_id)
-#             course=Courses.objects.get(id=subject_obj.course_id.id)
-#             check_course=Students.objects.filter(admin=request.user.id,course_id=course.id)
-#             if check_course.exists():
-#                 session_check=Students.objects.filter(admin=request.user.id,session_year_id=session_year_obj.id)
-#                 if session_check.exists():
-#                     onlineclass=OnlineClassRoom.objects.get(session_years=session_year_id,subject=subject_id)
-#                     return render(request,"student_template/join_class_room_start.html",{"username":request.user.username,"password":onlineclass.room_pwd,"roomid":onlineclass.room_name})
-#
-#                 else:
-#                     return HttpResponse("This Online Session is Not For You")
-#             else:
-#                 return HttpResponse("This Subject is Not For You")
-#         else:
-#             return HttpResponse("Session Year Not Found")
-#     else:
-#         return HttpResponse("Subject Not Found")
-
-
 def student_view_attendance(request):
     student=Students.objects.get(admin=request.user.id)
     course=student.course_id
@@ -108,31 +83,6 @@ def student_profile(request):
     student=Students.objects.get(admin=user)
     return render(request,"student_template/student_profile.html",{"user":user,"student":student})
 
-# def student_profile_save(request):
-#     if request.method!="POST":
-#         return HttpResponseRedirect(reverse("student_profile"))
-#     else:
-#         first_name=request.POST.get("first_name")
-#         last_name=request.POST.get("last_name")
-#         password=request.POST.get("password")
-#         address=request.POST.get("address")
-#         try:
-#             customuser=CustomUser.objects.get(id=request.user.id)
-#             customuser.first_name=first_name
-#             customuser.last_name=last_name
-#             if password!=None and password!="":
-#                 customuser.set_password(password)
-#             customuser.save()
-#
-#             student=Students.objects.get(admin=customuser)
-#             student.address=address
-#             student.save()
-#             messages.success(request, "Successfully Updated Profile")
-#             return HttpResponseRedirect(reverse("student_profile"))
-#         except:
-#             messages.error(request, "Failed to Update Profile")
-#             return HttpResponseRedirect(reverse("student_profile"))
-
 @csrf_exempt
 def student_fcmtoken_save(request):
     token=request.POST.get("token")
@@ -143,11 +93,6 @@ def student_fcmtoken_save(request):
         return HttpResponse("True")
     except:
         return HttpResponse("False")
-
-# def student_all_notification(request):
-#     student=Students.objects.get(admin=request.user.id)
-#     notifications=NotificationStudent.objects.filter(student_id=student.id)
-#     return render(request,"student_template/all_notification.html",{"notifications":notifications})
 
 def student_view_result(request):
     student=Students.objects.get(admin=request.user.id)
